@@ -1,6 +1,6 @@
 # LABORATORY-WORKS
 
-Contains laboratory works of the third year (second half) of study
+Contains laboratory works of the third year (second half) of study.
 
 # SUBJECTS
 
