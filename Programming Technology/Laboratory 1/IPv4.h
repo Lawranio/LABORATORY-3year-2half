@@ -39,6 +39,16 @@ IP::IP() {
 IP::IP(int first, int second, int third, int fourth) {
 	size = 4;
 	ip = new int[size];
+
+	try {
+		/* Ошибка динамического выделения памяти */
+		if (ip == 0) throw ("Error: Free store exhausted");
+	}
+	catch (const char* error) {
+		cerr << error << endl;
+		exit(-3);
+	}
+
 	ip[0] = first;
 	ip[1] = second;
 	ip[2] = third;
@@ -62,6 +72,7 @@ IP::~IP() {
 	ip = NULL;
 }
 
+/* Вывод в консоль */
 void IP::Print() {
 	try {
 		if (isSet == false) throw isSet;
@@ -72,12 +83,16 @@ void IP::Print() {
 		exit(-2);
 	}
 
+	cout << "Client IP: ";
 	for (int i = 0; i < 4; i++) {
 		cout << ip[i];
 		if (i < 3) cout << ".";
 	}
+	cout << endl;
 }
 
+
+/* Проверка диапазона [0..255] октетов */
 void IP::checkIP() {
 	int value;
 	int octet;
@@ -91,6 +106,11 @@ void IP::checkIP() {
 	}
 }
 
+
+/* Задание IP адреса пустому объекту 
+* 
+*  @in param - 4 октета IP адреса
+*/
 void IP::setIP(int first, int second, int third, int fourth) {
 	ip[0] = first;
 	ip[1] = second;
@@ -110,6 +130,8 @@ void IP::setIP(int first, int second, int third, int fourth) {
 	}
 }
 
+
+/* Подключение по IP адресу */
 void IP::connectIP() {
 	try {
 		/* Невозможно подключиться. IP адрес ещё не задан для этого клиента */
@@ -123,7 +145,7 @@ void IP::connectIP() {
 	cout << "Establishing a connection with ";
 	Print();
 
-	/* Симуляция задержки подключения */
+	/* Симуляция задержки подключения - чтобы было красиво :) */
 	for (int i = 0; i < 4; i++) {
 		cout << "." << endl;
 		Sleep(400);
