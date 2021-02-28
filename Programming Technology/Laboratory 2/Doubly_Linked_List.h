@@ -31,17 +31,20 @@ private:
 	int size{ 0 };						// размер даннных
 	Element* head{ nullptr };			// указатель на начало списка
 	Element* tail{ nullptr };			// указатель на конец списка
-	Exception catcher;					// обработчик исключений
 };
 
 
 
 template <class T> void DLL<T>::erase(int index) {
 	try {
-		if ((index < 0) || (index >= size)) throw ("Error: Index is out of range");
+		if ((index < 0) || (index >= size)) {
+			/* Ќеверный индекс дл€ удалени€ */
+			string error = "Error: Index is out of range";
+			throw Exception(ERASE_WRONG_INDEX, error);
+		}
 	}
-	catch (const char* error) {
-		catcher.printError(ERASE_WRONG_INDEX, error);
+	catch (Exception &ex) {
+		ex.printError();
 	}
 
 	Element* temp;
@@ -122,10 +125,13 @@ template <class T> void DLL<T>::pushBack(T data) {
 template <class T> void DLL<T>::Print() {
 	try {
 		/* ѕопытка вывести в консоль пустой двусв€зный список */
-		if (head == nullptr) throw ("Error: Doubly linked list is empty. Unable to print.");
+		if (head == nullptr) {
+			string error = "Error: Doubly linked list is empty. Unable to print.";
+			throw Exception(PRINT_EMPTY_DLL, error);
+		}
 	}
-	catch (const char* error) {
-		catcher.printError(PRINT_EMPTY_DLL, error);
+	catch (Exception &ex) {
+		ex.printError();
 	}
 
 	Element* temp = head;

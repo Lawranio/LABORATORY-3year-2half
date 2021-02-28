@@ -23,7 +23,6 @@ private:
 	T*  data;				// поле данных
 	int sizeMax{ 2 };		// максимальный размер массива
 	int size{ 0 };			// текущий размер массива
-	Exception catcher;		// обработчик исключений
 };
 
 
@@ -47,10 +46,11 @@ template <class T> void Stack<T>::Push(T data) {
 	if (size == sizeMax) {
 		try {
 			/* Достигнут максимальный размер стека */
-			throw ("Error: Maximum stack size reached. Unable to push.");
+			string error = "Error: Maximum stack size reached. Unable to push.";
+			throw Exception(STACK_MAX_SIZE, error);
 		}
-		catch (const char* error) {
-			catcher.printError(STACK_MAX_SIZE, error);
+		catch (Exception &ex) {
+			ex.printError();
 		}
 	}
 	else {
@@ -78,10 +78,11 @@ template <class T> void Stack<T>::Pop() {
 	if (isEmpty() == 1) {
 		try {
 			/* Стек пустой. Нельзя сделать pop */
-			throw ("Error: Stack is empty. Unable to pop.");
+			string error = "Error: Stack is empty. Unable to pop.";
+			throw Exception(STACK_EMPTY_POP, error);
 		}
-		catch (const char* error) {
-			catcher.printError(STACK_EMPTY_POP, error);
+		catch (Exception &ex) {
+			ex.printError();
 		}
 	}
 	else {

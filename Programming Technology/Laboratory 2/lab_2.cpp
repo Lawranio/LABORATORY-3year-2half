@@ -33,20 +33,18 @@ int main() {
 
 	Stack<Vehicle>s1;
 
+	
+
 	s1 + tesla;
 	s1 + lada;
 	s1 + ford;
-
-	s1.Print();
 
 
 
 	DLL<char> d1;
 
-	d1.pushBack('a');
-	d1.pushFront('b');
+	
 
-	d1.Print();
 
 
 	cout << endl;

@@ -23,8 +23,8 @@ public:
 
 private:
 	const char* model;		// марка
-	int hp;			// мощность
-	float price;	// стоимость
+	int hp;					// мощность
+	float price;			// стоимость
 };
 
 

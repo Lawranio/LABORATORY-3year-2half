@@ -2,8 +2,11 @@
 #define EXCEPTION_H
 
 #include <iostream>
+#include <exception>
+#include <string>
 
 using namespace std;
+
 
 enum errors {
 	PRINT_EMPTY_DLL,		// Попытка вывести в консоль пустой двусвязный список
@@ -13,33 +16,36 @@ enum errors {
 };
 
 
-
-class Exception {
+class Exception{
 public:
-	Exception() = default;
+	Exception(errors reason, string message) : errorReason(reason), errorMessage(message) {};
 	~Exception() {};
-	void printError(errors error, const char* message) {
-		switch (error) {
+	void printError() {
+		switch (errorReason) {
 		case PRINT_EMPTY_DLL: {
-			cerr << message << endl;
+			cerr << errorMessage << endl;
 			exit(-1);
 			break;
 		}
 		case ERASE_WRONG_INDEX: {
-			cerr << message << endl;
+			cerr << errorMessage << endl;
 			exit(-2);
 			break;
 		}
 		case STACK_MAX_SIZE: {
-			cerr << message << endl;
+			cerr << errorMessage << endl;
 			break;
 		}
 		case STACK_EMPTY_POP: {
-			cerr << message << endl;
+			cerr << errorMessage << endl;
 			break;
 		}
 		}
 	}
+
+private:
+	errors errorReason;
+	string errorMessage;
 };
 
 #endif // !EXCEPTION_H
