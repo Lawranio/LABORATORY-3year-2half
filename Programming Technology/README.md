@@ -29,10 +29,12 @@ Possibility of ADT to receive custom data type 'car' with these fields:
 * price
 
 
+
 Additional operations:
 * Overload '+' (push)
 * Overload '--' (pop)
 * Function 'isEmpty'
+
 
 
 List of exceptions:
