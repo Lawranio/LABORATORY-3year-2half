@@ -1,6 +1,7 @@
 #ifndef DOUBLY_LINKED_LIST_H
 #define DOUBLY_LINKED_LIST_H
 
+#include "Exception.h"
 #include <iostream>
 
 using namespace std;
@@ -30,8 +31,8 @@ private:
 	int size{ 0 };						// размер даннных
 	Element* head{ nullptr };			// указатель на начало списка
 	Element* tail{ nullptr };			// указатель на конец списка
+	Exception catcher;					// обработчик исключений
 };
-
 
 
 
@@ -40,12 +41,12 @@ template <class T> void DLL<T>::erase(int index) {
 		if ((index < 0) || (index >= size)) throw ("Error: Index is out of range");
 	}
 	catch (const char* error) {
-		cerr << error << endl;
-		exit(-2);
+		catcher.printError(ERASE_WRONG_INDEX, error);
 	}
 
 	Element* temp;
 
+	/* Если нужно стереть первый элемент */
 	if (index == 0) {
 		temp = head;
 		head = temp->nextptr;
@@ -55,6 +56,7 @@ template <class T> void DLL<T>::erase(int index) {
 		return;
 	}
 
+	/* Если нужно стереть последний элемент */
 	if (index == size - 1) {
 		Element* tempDelete = tail;
 		temp = tail;
@@ -123,8 +125,7 @@ template <class T> void DLL<T>::Print() {
 		if (head == nullptr) throw ("Error: Doubly linked list is empty. Unable to print.");
 	}
 	catch (const char* error) {
-		cerr << error << endl;
-		exit(-1);
+		catcher.printError(PRINT_EMPTY_DLL, error);
 	}
 
 	Element* temp = head;

@@ -19,6 +19,7 @@
 
 */
 
+#include "Exception.h"
 #include "Doubly_Linked_List.h"
 #include "Stack.h"
 #include "Vehicle.h"
@@ -40,15 +41,12 @@ int main() {
 
 
 
-
 	DLL<char> d1;
 
 	d1.pushBack('a');
 	d1.pushFront('b');
 
 	d1.Print();
-
-	
 
 
 	cout << endl;

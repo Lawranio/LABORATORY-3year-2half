@@ -1,6 +1,7 @@
 #ifndef STACK_H
 #define STACK_H
 
+#include "Exception.h"
 #include <iostream>
 
 using namespace std;
@@ -22,6 +23,7 @@ private:
 	T*  data;				// поле данных
 	int sizeMax{ 2 };		// максимальный размер массива
 	int size{ 0 };			// текущий размер массива
+	Exception catcher;		// обработчик исключений
 };
 
 
@@ -42,55 +44,58 @@ template <class T> Stack<T>::~Stack() {
 
 
 template <class T> void Stack<T>::Push(T data) {
-	try {
-		/* Достигнут максимальный размер стека */
-		if ((size == sizeMax) ) throw ("Error: Maximum stack size reached. Unable to push.");
+	if (size == sizeMax) {
+		try {
+			/* Достигнут максимальный размер стека */
+			throw ("Error: Maximum stack size reached. Unable to push.");
+		}
+		catch (const char* error) {
+			catcher.printError(STACK_MAX_SIZE, error);
+		}
 	}
-	catch (const char* error) {
-		cerr << error << endl << endl;
-		return;
+	else {
+		auto* newData = new T[size + 1];
+		for (int i = 0; i < size; i++) {
+			newData[i] = this->data[i];
+		}
+		newData[size] = data;
+		size++;
+		delete[] this->data;
+		this->data = newData;
 	}
-
-
-	auto* newData = new T[size + 1];
-	for (int i = 0; i < size; i++) {
-		newData[i] = this->data[i];
-	}
-	newData[size] = data;
-	size++;
-	delete[] this->data;
-	this->data = newData;
 }
 
 
 template <class T> void Stack<T>::Print() {
 	for (int i = 0; i < size; i++) {
-		cout << data[i];
+		cout << data[i] << " ";
 	}
 	cout << endl;
 }
 
 
 template <class T> void Stack<T>::Pop() {
-	try {
-		/* Стек пустой. Нельзя сделать pop */
-		if (isEmpty() == 1) throw ("Error: Stack is empty. Unable to pop.");
+	if (isEmpty() == 1) {
+		try {
+			/* Стек пустой. Нельзя сделать pop */
+			throw ("Error: Stack is empty. Unable to pop.");
+		}
+		catch (const char* error) {
+			catcher.printError(STACK_EMPTY_POP, error);
+		}
 	}
-	catch (const char* error) {
-		cerr << error << endl;
-		return;
-	}
+	else {
+		T popData = data[size - 1];
+		cout << "Data to pop: " << popData << endl;
 
-	T popData = data[size - 1];
-	cout << "Data to pop: " << popData << endl;
-
-	size--;
-	auto* newData = new T[size];
-	for (int i = 0; i < size; i++) {
-		newData[i] = data[i];
+		size--;
+		auto* newData = new T[size];
+		for (int i = 0; i < size; i++) {
+			newData[i] = data[i];
+		}
+		delete[] data;
+		data = newData;
 	}
-	delete[] data;
-	data = newData;
 }
 
 
