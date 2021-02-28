@@ -35,7 +35,8 @@ Additional operations:
 * Function 'isEmpty'
 
 
-List of exceptions:'\n'
+List of exceptions:
+
 *Doubly Linked List*
 * An attempt to display an empty doubly linked list
 * Invalid index to delete element
