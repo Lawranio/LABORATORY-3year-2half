@@ -19,7 +19,7 @@ public:
 private:
 	class Element {
 	public:
-		T data{ 0 };					// поле данных
+		T data;					// поле данных
 		Element* nextptr{ nullptr };	// указатель на следующий элемент
 		Element* prevptr{ nullptr };	// указатель на предыдущий элемент
 		Element(T data, Element* nextptr = nullptr, Element* prevptr = nullptr) {
@@ -45,6 +45,7 @@ template <class T> void DLL<T>::erase(int index) {
 	}
 	catch (Exception &ex) {
 		ex.printError();
+		return;
 	}
 
 	Element* temp;
@@ -132,11 +133,12 @@ template <class T> void DLL<T>::Print() {
 	}
 	catch (Exception &ex) {
 		ex.printError();
+		return;
 	}
 
 	Element* temp = head;
 	while (temp->nextptr != nullptr) {
-		cout << temp->data << ", ";
+		cout << temp->data << " ";
 		temp = temp->nextptr;
 	}
 	cout << temp->data << endl;

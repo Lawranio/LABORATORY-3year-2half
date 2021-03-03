@@ -68,7 +68,7 @@ template <class T> void Stack<T>::Push(T data) {
 
 template <class T> void Stack<T>::Print() {
 	for (int i = 0; i < size; i++) {
-		cout << data[i] << " ";
+		cout << data[i] << "";
 	}
 	cout << endl;
 }

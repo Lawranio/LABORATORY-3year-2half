@@ -24,16 +24,14 @@ public:
 		switch (errorReason) {
 		case PRINT_EMPTY_DLL: {
 			cerr << errorMessage << endl;
-			exit(-1);
 			break;
 		}
 		case ERASE_WRONG_INDEX: {
 			cerr << errorMessage << endl;
-			exit(-2);
 			break;
 		}
 		case STACK_MAX_SIZE: {
-			cerr << errorMessage << endl;
+			cerr << errorMessage << endl << endl;
 			break;
 		}
 		case STACK_EMPTY_POP: {
