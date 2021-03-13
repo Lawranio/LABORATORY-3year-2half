@@ -68,11 +68,25 @@ The structural type contains the following fields:
 * position
 * salary
 
-Write a program that prints to the console:
-* list of employees of retirement age
-* the average work experience in the department
+Write a program that:
+* prints to the console list of employees of retirement age
+* prints to the console the average work experience in the department
+* writes down or reads that structural type
 
 
 List of exceptions:
 * Can't open file
 * Attempt to display results on file opening error
+
+
+
+# LABORATORY 4 (Binary files)
+
+Add even elements of this file to the end of the binary file of integer type
+
+Write a program that writes down or reads structural type from 3rd laboratory to binary file
+
+
+List of exceptions:
+* Can't open file
+* 
