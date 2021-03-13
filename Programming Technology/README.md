@@ -46,3 +46,33 @@ List of exceptions:
 *Stack*
 * Maximum stack size reached
 * An attempt to pop from empty stack
+
+
+
+# LABORATORY 3 (Text files)
+
+Given a file whose elements are numbers. Find:
+* Maximum value
+* Minimum value from the even-numbered elements
+* Maximum absolute value from the odd-numbered elements
+* Sum of maximum and minimum elements
+* Subtraction of first and last elements
+
+
+Form an array on disk containing information about the employees of the institute.
+The structural type contains the following fields:
+* surname
+* department
+* year of birth
+* work experience
+* position
+* salary
+
+Write a program that prints to the console:
+* list of employees of retirement age
+* the average work experience in the department
+
+
+List of exceptions:
+* Can't open file
+* Attempt to display results on file opening error
