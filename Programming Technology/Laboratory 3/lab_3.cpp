@@ -34,9 +34,9 @@
 
 int main()
 {
-    fileHandler r("text.txt", 15);
+    /*fileHandler r("text.txt", 15);
     r.printResult();
-    cout << endl << endl;
+    cout << endl << endl;*/
 
     instituteWorker a("q", "dep_a", "pos_1", 1980, 10, 1);
     instituteWorker b("j", "dep_b", "pos_2", 1960, 10, 12);
@@ -47,6 +47,8 @@ int main()
 
     vector<instituteWorker> q;
 
+    vector<instituteWorker> aggg;
+
     q.push_back(a);
     q.push_back(b);
     q.push_back(c);
@@ -54,7 +56,16 @@ int main()
     q.push_back(e);
     q.push_back(f);
 
-    listRetirmentAge(q);
+    //listRetirmentAge(q);
     float abc = averageWorkExp(q, "dep_b");
-    cout << abc;
+    //cout << abc;
+
+    writeData("text.txt", q);
+    readData("text.txt", aggg);
+
+    for (int i = 0; i < aggg.size(); i++) {
+        cout << aggg[i];
+    }
+
+    return 0;
 }

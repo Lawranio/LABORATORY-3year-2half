@@ -1,14 +1,41 @@
 #include "Institute_Worker.h"
 
-instituteWorker::instituteWorker(string _surname, string _department, string _position, 
+instituteWorker::instituteWorker(const char* _surname, const char* _department, const char* _position, 
 	int _birthYear, int _workExp, float _salary) {
 
-	surname = _surname;
-	department = _department;
-	position = _position;
+	strcpy_s(surname, _surname);
+	strcpy_s(department, _department);
+	strcpy_s(position, _position);
 	birthYear = _birthYear;
 	workExp = _workExp;
 	salary = _salary;
+}
+
+
+
+void writeData(const char* path, vector<instituteWorker>& q) {
+	ofstream fout;
+	fout.open(path, ofstream::app);
+
+	for (int i = 0; i < q.size(); i++) {
+		fout.write((char*)&q[i], sizeof(instituteWorker));
+	}
+
+	fout.close();
+}
+
+void readData(const char* path, vector<instituteWorker>& q) {
+	ifstream fin;
+	fin.open(path);
+	int i{ 0 };
+	instituteWorker temp;
+
+	while (fin.read((char*)&temp, sizeof(instituteWorker))) {
+		q.push_back(temp);
+		i++;
+	}
+
+	fin.close();
 }
 
 
