@@ -10,7 +10,7 @@ using namespace std;
 
 enum errors {
 	FILE_CANNOT_OPEN,		// Файл не открывается
-	INCORRECT_MODE,			// Неверный режим открытия файла
+	FILE_ERROR,				// Ошибка при работе с файлом
 };
 
 
@@ -20,6 +20,7 @@ public:
 	~Exception() {};
 	void printError() {
 		switch (errorReason) {
+		case FILE_ERROR:
 		case FILE_CANNOT_OPEN: {
 			cerr << errorMessage << endl;
 			break;
