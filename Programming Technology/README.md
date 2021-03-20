@@ -89,4 +89,4 @@ Write a program that writes down or reads structural type from 3rd laboratory to
 
 List of exceptions:
 * Can't open file
-* 
+* Error while working with file
