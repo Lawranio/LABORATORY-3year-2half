@@ -1,4 +1,12 @@
-﻿#include <iostream>
+﻿/* Задание
+
+Персональные ЭВМ. Тип процессора, тактовая частота, объём ОЗУ, объём жёсткого диска,
+дата выпуска. Сведения о фирмах-изготовителях и фирмах-реализаторах: наименование,
+адрес, телефон
+
+*/
+
+#include <iostream>
 #include "Computer.h"
 #include "Сompany.h"
 
@@ -9,17 +17,11 @@ int main()
 	Distributor dns("DNS", "Russia", "904-652");
 
 	amd.CreateComputer();
-	amd.CreateComputer();
-
 	intel.CreateComputer();
 
-	dns.GetComputer(amd);
 	dns.GetComputer(amd);
 	dns.GetComputer(intel);
 
 	dns.SellComputer();
 	dns.SellComputer();
-	dns.SellComputer();
-
-
 }
