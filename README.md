@@ -6,3 +6,4 @@ Contains laboratory works of the third year (second half) of study.
 
 * Programming Technology (C++)
 * Database (SQL)
+* Control theory (Relkon)
