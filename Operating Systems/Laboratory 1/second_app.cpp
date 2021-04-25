@@ -19,6 +19,7 @@ int main() {
 	int fd[2];
 	int B[5][5];
 	int prediction[2];	// 0 - string, 1 - column;
+	int received[2];	// 0 - string, 1 - column;
 	bool gameOver = false;
 
 	srand(time(0));
@@ -35,9 +36,11 @@ int main() {
 	if (fd[0] = open("mypipe", O_WRONLY) == -1) cout << "Open error #2";
 
 	while (true) {
-		read(fd[1], prediction, sizeof(prediction));
+		fd[0] = open("mypipe", O_RDONLY);
+		read(fd[0], received, sizeof(received));
+		close(fd[0]);
 		
-		if (B[prediction[0]] [prediction[1]] == 1) {
+		if (B[received[0] - 1] [received[1] - 1] == 1) {
 			cout << "You lose" << endl;
 			break;
 		}
@@ -48,7 +51,9 @@ int main() {
 		cout <<"\nEnter column index: ";
 		cin >> prediction[1];
 		
-		write(fd[0], prediction, sizeof(prediction));
+		fd[1] = open("mypipe2", O_WRONLY);
+		write(fd[1], prediction, sizeof(prediction));
+		close(fd[1]);
 	}
 	
 }
