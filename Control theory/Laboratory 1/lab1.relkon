@@ -1,0 +1,62 @@
+
+#DATA
+// Присвоение переменных программы.
+	int isRunning;
+	int isFailure;
+	
+	int number;
+	
+#INIT
+
+	isRunning = 0;
+	isFailure = 0;
+	number = 1;
+	
+#STARTp0;
+//-----Начало программы.
+		
+#PROCESS 0
+#SIT1(0.1)
+
+			if (#IN0.1 == 1) {
+			//cout << "Уровень воды выше верхнего датчика - насосы не работают" << endl << endl;
+			#OUT0.0 = 0;
+			#OUT0.1 = 0;
+
+			//in4 = 1;
+			isRunning = 0;
+		}
+
+
+			if (#IN0.2 == 0 && isRunning == 0 && isFailure == 0 && number == 1) {
+			//cout << "Уровень воды ниже нижнего датчика - включается насос 1" << endl << endl;
+			#OUT0.0 = 1;
+			number++;
+
+			isRunning = 1;
+		}
+
+
+			if (#IN0.2 == 0 && isRunning == 0 && isFailure == 0 && number == 2) {
+			//cout << "Уровень воды ниже нижнего датчика - включается насос 2" << endl << endl;
+			#OUT0.1 = 1;
+			number--;
+
+			isRunning = 1;
+		}
+
+
+			if (#IN0.3 == 1 && isFailure == 0) {
+			//cout << "Оба насоса не работают - авария" << endl << endl;
+			#OUT0.2 = 1;
+			isFailure = 1;
+		}
+
+
+			if (#IN0.0 == 1 && isFailure == 1) {
+			//cout << "Сигнал 'авария' сброшен" << endl << endl;
+			#OUT0.2 = 0;
+			isFailure = 0;
+		}
+
+#/R;
