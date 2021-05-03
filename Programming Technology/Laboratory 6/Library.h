@@ -141,11 +141,10 @@ void Library::LetLibItemOut(LibraryItem* item, Reader* reader)
 	// в данной библиотеке
 	if (find(_readers.begin(), _readers.end(), reader) != _readers.end())
 	{
-		// Кнмгу можно выдать, если она не была взята другим  или этим читателем
+		// Книгу можно выдать, если она не была взята другим  или этим читателем
 		if (item->GetReader() == NULL)
 		{
-			// Получить величину периода владения книгой в соответствии с 
-			// со стратегией и выдать книгу
+			// Получить книгу может только инженер
 			int holdPeriod = _deliveryStrategy->HoldPeriod(*reader);
 
 			item->SetHolderPeriod(holdPeriod);

@@ -24,7 +24,6 @@ public:
 
 private:
 	int _class;
-
 };
 
 
@@ -33,7 +32,6 @@ private:
 Student::Student(const string& name, int clazz)
 	: Reader(name), _class(clazz)
 {
-
 }
 
 Student::~Student()

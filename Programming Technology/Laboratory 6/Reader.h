@@ -28,14 +28,14 @@ protected:
 
 private:
 	string _name;
-
 };
 
 
 
 
 
-Reader::Reader(const string& name) : _name(name)
+Reader::Reader(const string& name)
+	: _name(name)
 {
 
 }

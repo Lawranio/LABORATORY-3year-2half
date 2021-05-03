@@ -1,10 +1,12 @@
 ﻿#include "Library.h"
 #include "PurchaseCheapStrategy.h"
 #include "PurchaseExpensiveStrategy.h"
+#include "PurchaseNewspaperStrategy.h"
 #include "PublicLibraryStrategy.h"
 #include "UniversityLibraryStrategy.h"
 #include "Student.h"
 #include "Lecturer.h"
+#include "Engineer.h"
 #include "ItemFactory.h"
 #include <windows.h>
 #include  "LibraryItem.h"
@@ -29,12 +31,12 @@ int main()
 	//
 	Library vlsuLibrary(
 		string("Библиотека ВЛГУ"),
-		new PurchaseCheapStrategy(5),
+		new PurchaseCheapStrategy(15),
 		new UniversityLibraryStrategy(50));
 	Library regionLibrary(
 		string("Региональная библиотека"),
-		new PurchaseExpensiveStrategy(4),
-		new PublicLibraryStrategy(65));
+		new PurchaseNewspaperStrategy,
+		new PublicLibraryStrategy(65, 40, 30));
 
 	//
 	// Читатели разлчиных категорий
@@ -46,6 +48,9 @@ int main()
 	Lecturer lec1(string("Кутузов"), string("доцент"));
 	Lecturer lec2(string("Суворов"), string("ассистент"));
 
+	Engineer eng1("Кузнецов", "практикант");
+	Engineer eng2("Сталин", "главный инженер");
+
 	//
 	// Регистрируем читателей в библиотеках. Некоторые из читателей -
 	// в нескольких библиотеках
@@ -53,6 +58,8 @@ int main()
 	vlsuLibrary.AddReader(&st1);
 	vlsuLibrary.AddReader(&st2);
 	regionLibrary.AddReader(&st3);
+	regionLibrary.AddReader(&eng1);
+	vlsuLibrary.AddReader(&eng2);
 
 	vlsuLibrary.AddReader(&lec1);
 	vlsuLibrary.AddReader(&lec2);
@@ -63,7 +70,7 @@ int main()
 	//
 	// Генерировать несколько печатных изданий и "продать" их библиотекам
 	//
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		IItem* item;
 
@@ -73,6 +80,7 @@ int main()
 		{
 			// Создать экземпляр журнала
 			item = ItemFactory::Instance().CreateJournal();
+			item = ItemFactory::Instance().CreateNewspaper();
 		}
 		else
 		{
@@ -109,12 +117,15 @@ int main()
 	// Моделируем выдачу печатных изданий читателям
 	//
 	vlsuLibrary.LetLibItemOut(vlsuLibrary.GetLibItems()[0], &st1);
-	vlsuLibrary.LetLibItemOut(vlsuLibrary.GetLibItems()[1], &st1);
-	vlsuLibrary.LetLibItemOut(vlsuLibrary.GetLibItems()[2], &st2);
-	regionLibrary.LetLibItemOut(regionLibrary.GetLibItems()[0], &st3);
+	vlsuLibrary.LetLibItemOut(vlsuLibrary.GetLibItems()[1], &lec1);
+	vlsuLibrary.LetLibItemOut(vlsuLibrary.GetLibItems()[2], &lec2);
+	vlsuLibrary.LetLibItemOut(vlsuLibrary.GetLibItems()[3], &eng2);
 
-	vlsuLibrary.LetLibItemOut(vlsuLibrary.GetLibItems()[3], &lec1);
-	regionLibrary.LetLibItemOut(regionLibrary.GetLibItems()[1], &lec1);
+	regionLibrary.LetLibItemOut(regionLibrary.GetLibItems()[0], &lec2);
+	regionLibrary.LetLibItemOut(regionLibrary.GetLibItems()[1], &lec2);
+	regionLibrary.LetLibItemOut(regionLibrary.GetLibItems()[2], &lec1);
+	regionLibrary.LetLibItemOut(regionLibrary.GetLibItems()[3], &lec1);
+	regionLibrary.LetLibItemOut(regionLibrary.GetLibItems()[4], &eng1);
 
 	//
 	// Показать состояние библиотек и книг
@@ -126,22 +137,6 @@ int main()
 	return 0;
 }
 
-//string DosString(string winString)
-//{
-//	// Буфер для преобразования 
-//	char* szStr = new char[winString.size() + 1];
-//
-//	// Вызов CharToOemBuff - функции Windows API для преобразования 
-//	// Результат преобразования записывается в буфер
-//	CharToOemBuff(LPCWSTR(winString.c_str()), szStr, DWORD(winString.size() + 1));
-//
-//	return string(szStr);
-//}
-
-//string DosString(const char* const winString)
-//{
-//	return DosString(string (winString));
-//}
 
 
 void Show(Library& lib)

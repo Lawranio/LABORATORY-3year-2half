@@ -71,6 +71,9 @@ public:
 		return _item->GetPrice();
 	}
 
+	string GetType() const { return _item->GetType(); };
+
+
 private:
 	// Это указатель на "обернутый объект"
 	IItem* _item;

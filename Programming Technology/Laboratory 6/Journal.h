@@ -14,7 +14,7 @@
 class Journal : public IItem
 {
 public:
-	Journal(const string& title, double price, const string& volume);
+	Journal(const string& title, double price, const string& volume, const string& type);
 	virtual ~Journal();
 
 	// Реализация интерфейса печатного издания
@@ -29,6 +29,8 @@ public:
 		return _price;
 	}
 
+	string GetType() const { return _type; };
+
 	// Получть название тома (номера) журнала. 
 	// Добавленный метод, специфический для журнала
 	string GetVolume() const
@@ -40,6 +42,7 @@ private:
 	string _title;
 	double _price;
 	string _volume;
+	string _type;
 
 };
 
@@ -47,8 +50,8 @@ private:
 
 
 
-Journal::Journal(const string& title, double price, const string& volume)
-	: _title(title), _price(price), _volume(volume)
+Journal::Journal(const string& title, double price, const string& volume, const string& type)
+	: _title(title), _price(price), _volume(volume), _type(type)
 {
 
 }

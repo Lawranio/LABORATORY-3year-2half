@@ -26,6 +26,9 @@ public:
 	// Стоимость
 	virtual double GetPrice() const = 0;
 
+	// Тип издания
+	virtual string GetType() const = 0;
+
 };
 
 #endif // !defined(AFX_IITEM_H__E4EFABA4_D391_42E1_8C3B_C1338A8B35DE__INCLUDED_)

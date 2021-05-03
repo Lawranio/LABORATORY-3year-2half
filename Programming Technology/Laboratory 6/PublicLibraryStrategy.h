@@ -10,6 +10,9 @@
 #endif // _MSC_VER > 1000
 
 #include "IDeliveryStrategy.h"
+#include "Student.h"
+#include "Lecturer.h"
+#include "Engineer.h"
 
 //
 // Реализация стратегии определения времени владения книгой.
@@ -20,14 +23,16 @@
 class PublicLibraryStrategy : public IDeliveryStrategy
 {
 public:
-	PublicLibraryStrategy(int nomianlHoldPeriod);
+	PublicLibraryStrategy(int studentHoldPeriod, int lecturerHoldPeriod, int engineerHoldPeriod);
 	virtual ~PublicLibraryStrategy();
 
 	// Реализация метода интерфейса стратегии
 	int HoldPeriod(const Reader& reader) const;
 
 private:
-	int _nomianlHoldPeriod;
+	int _studentHoldPeriod;
+	int _lecturerHoldPeriod;
+	int _engineerHolPeriod;
 
 };
 
@@ -35,8 +40,8 @@ private:
 
 
 
-PublicLibraryStrategy::PublicLibraryStrategy(int nomianlHoldPeriod)
-	: _nomianlHoldPeriod(nomianlHoldPeriod)
+PublicLibraryStrategy::PublicLibraryStrategy(int studentHoldPeriod, int lecturerHoldPeriod, int engineerHoldPeriod)
+	: _studentHoldPeriod(studentHoldPeriod), _lecturerHoldPeriod(lecturerHoldPeriod), _engineerHolPeriod(engineerHoldPeriod)
 {
 
 }
@@ -48,8 +53,13 @@ PublicLibraryStrategy::~PublicLibraryStrategy()
 
 int PublicLibraryStrategy::HoldPeriod(const Reader& reader) const
 {
-	// Не зависимо от категории читателя, период для всех одинаковый
-	return _nomianlHoldPeriod;
+	const Student* student = dynamic_cast<const Student*>(&reader);
+	const Lecturer* lecturer = dynamic_cast<const Lecturer*>(&reader);
+	const Engineer* engineer = dynamic_cast<const Engineer*>(&reader);
+
+	if (student != NULL) return _studentHoldPeriod;
+	if (lecturer != NULL) return _lecturerHoldPeriod;
+	if (engineer != NULL) return _engineerHolPeriod;
 }
 
 #endif // !defined(AFX_PUBLICLIBRARYSTRATEGY_H__38B59517_9DDE_4CEA_AE86_42CC9272B22C__INCLUDED_)
